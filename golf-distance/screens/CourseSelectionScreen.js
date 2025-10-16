@@ -2,23 +2,29 @@ import React from 'react';
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 
 export default function CourseSelectionScreen({ navigation }) {
+  const handleCourseSelect = (courseId, color) => {
+    navigation.navigate('HoleSelection', { courseId, courseColor: color });
+  };
+
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Selecciona el Recorrido</Text>
+      <Text style={styles.title}>Recorrido</Text>
       
-      <TouchableOpacity 
-        style={[styles.button, styles.redButton]}
-        onPress={() => navigation.navigate('HoleSelection', { courseId: 'rojo' })}
-      >
-        <Text style={styles.buttonText}>Recorrido Rojo</Text>
-      </TouchableOpacity>
+      <View style={styles.buttonsContainer}>
+        <TouchableOpacity 
+          style={[styles.button, styles.redButton]}
+          onPress={() => handleCourseSelect('rojo', '#c41e3a')}
+        >
+          <Text style={styles.buttonText}>Rojo</Text>
+        </TouchableOpacity>
 
-      <TouchableOpacity 
-        style={[styles.button, styles.greenButton]}
-        onPress={() => navigation.navigate('HoleSelection', { courseId: 'verde' })}
-      >
-        <Text style={styles.buttonText}>Recorrido Verde</Text>
-      </TouchableOpacity>
+        <TouchableOpacity 
+          style={[styles.button, styles.greenButton]}
+          onPress={() => handleCourseSelect('verde', '#4caf50')}
+        >
+          <Text style={styles.buttonText}>Verde</Text>
+        </TouchableOpacity>
+      </View>
     </View>
   );
 }
@@ -28,20 +34,28 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#2d5f2e',
     alignItems: 'center',
-    justifyContent: 'center',
+    paddingTop: 60,
     padding: 20,
   },
   title: {
-    fontSize: 28,
+    fontSize: 32,
     fontWeight: 'bold',
     color: '#fff',
-    marginBottom: 50,
+    marginBottom: 80,
+    textAlign: 'center',
+  },
+  buttonsContainer: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    gap: 20,
   },
   button: {
-    width: '80%',
-    paddingVertical: 20,
-    borderRadius: 15,
-    marginVertical: 15,
+    width: 150,
+    height: 150,
+    borderRadius: 10,
+    alignItems: 'center',
+    justifyContent: 'center',
     elevation: 3,
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 2 },
@@ -56,7 +70,7 @@ const styles = StyleSheet.create({
   },
   buttonText: {
     color: '#fff',
-    fontSize: 22,
+    fontSize: 28,
     fontWeight: 'bold',
     textAlign: 'center',
   },

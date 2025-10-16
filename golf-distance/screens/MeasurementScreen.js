@@ -5,7 +5,7 @@ import { getDistance } from 'geolib';
 import { courses } from '../data/courses';
 
 export default function MeasurementScreen({ route }) {
-  const { courseId, holeNumber } = route.params;
+  const { courseId, holeNumber, courseColor } = route.params;
   const course = courses[courseId];
   const hole = course.holes.find(h => h.number === holeNumber);
   
@@ -67,18 +67,8 @@ export default function MeasurementScreen({ route }) {
     }
   };
 
-  const getDistanceText = () => {
-    if (!distance) return '';
-    
-    if (hole.par === 3) {
-      return `${distance} mts a centro de green`;
-    } else {
-      return `${distance} mts a entrada de green`;
-    }
-  };
-
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, { backgroundColor: courseColor }]}>
       <Text style={styles.courseTitle}>{course.name}</Text>
       <Text style={styles.holeTitle}>Hoyo {hole.number}</Text>
       <Text style={styles.parText}>Par {hole.par}</Text>
@@ -89,7 +79,7 @@ export default function MeasurementScreen({ route }) {
           onPress={measureDistance}
           disabled={loading}
         >
-          <Text style={styles.buttonText}>
+          <Text style={[styles.buttonText, { color: courseColor }]}>
             {loading ? 'Midiendo...' : 'Medición'}
           </Text>
         </TouchableOpacity>
@@ -110,7 +100,6 @@ export default function MeasurementScreen({ route }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#2d5f2e',
     padding: 20,
     alignItems: 'center',
     justifyContent: 'center',
@@ -151,7 +140,6 @@ const styles = StyleSheet.create({
     backgroundColor: '#ccc',
   },
   buttonText: {
-    color: '#2d5f2e',
     fontSize: 24,
     fontWeight: 'bold',
   },

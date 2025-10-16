@@ -1,14 +1,9 @@
 import React from 'react';
-import { View, Text, Image, TouchableOpacity, StyleSheet } from 'react-native';
+import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 
 export default function HomeScreen({ navigation }) {
   return (
     <View style={styles.container}>
-      <Image 
-        source={require('../assets/images/logo.jpg')} 
-        style={styles.logo}
-        resizeMode="contain"
-      />
       <Text style={styles.title}>DISTANCIA</Text>
       <Text style={styles.subtitle}>CLUB DE GOLF COSTA AZAHAR</Text>
       
@@ -29,11 +24,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     padding: 20,
-  },
-  logo: {
-    width: 200,
-    height: 200,
-    marginBottom: 20,
   },
   title: {
     fontSize: 36,
