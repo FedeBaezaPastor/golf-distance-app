@@ -1,0 +1,32 @@
+========================================
+COMANDOS PARA SUBIR A GITHUB
+========================================
+
+Copia y pega estos comandos UNO POR UNO en la terminal de Replit
+(Shell en el panel izquierdo)
+
+1. Inicializar git:
+   git init
+
+2. Añadir todos los archivos:
+   git add .
+
+3. Hacer commit:
+   git commit -m "App Golf Costa Azahar - primera version"
+
+4. Configurar rama principal:
+   git branch -M main
+
+5. Conectar con tu repositorio:
+   git remote add origin https://github.com/TU_USUARIO/golf-distance-app.git
+   
+   ⚠️ IMPORTANTE: Cambia TU_USUARIO por tu usuario real de GitHub
+   Ejemplo: si tu usuario es "juangolf", el comando sería:
+   git remote add origin https://github.com/juangolf/golf-distance-app.git
+
+6. Subir el código:
+   git push -u origin main
+
+========================================
+NOTA: Te pedirá usuario y contraseña de GitHub
+========================================
