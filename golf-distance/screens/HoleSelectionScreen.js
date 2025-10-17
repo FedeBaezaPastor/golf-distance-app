@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
+import { View, Text, TouchableOpacity, StyleSheet, StatusBar } from 'react-native';
 import { courses } from '../data/courses';
 
 export default function HoleSelectionScreen({ route, navigation }) {
@@ -8,6 +8,7 @@ export default function HoleSelectionScreen({ route, navigation }) {
 
   return (
     <View style={[styles.container, { backgroundColor: courseColor }]}>
+      <StatusBar barStyle="light-content" backgroundColor={courseColor} />
       <Text style={styles.title}>{course.name}</Text>
       <Text style={styles.subtitle}>Selecciona el Hoyo</Text>
       

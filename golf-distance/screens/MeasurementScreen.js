@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, TouchableOpacity, StyleSheet, Alert } from 'react-native';
+import { View, Text, TouchableOpacity, StyleSheet, Alert, StatusBar } from 'react-native';
 import * as Location from 'expo-location';
 import { getDistance } from 'geolib';
 import { courses } from '../data/courses';
 
-export default function MeasurementScreen({ route }) {
+export default function MeasurementScreen({ route, navigation }) {
   const { courseId, holeNumber, courseColor } = route.params;
   const course = courses[courseId];
   const hole = course.holes.find(h => h.number === holeNumber);
@@ -12,6 +12,9 @@ export default function MeasurementScreen({ route }) {
   const [distance, setDistance] = useState(null);
   const [loading, setLoading] = useState(false);
   const [locationPermission, setLocationPermission] = useState(false);
+
+  const isFirstHole = holeNumber === 1;
+  const isLastHole = holeNumber === 9;
 
   useEffect(() => {
     requestLocationPermission();
@@ -67,8 +70,29 @@ export default function MeasurementScreen({ route }) {
     }
   };
 
+  const goToPreviousHole = () => {
+    if (holeNumber > 1) {
+      navigation.replace('Measurement', {
+        courseId,
+        holeNumber: holeNumber - 1,
+        courseColor
+      });
+    }
+  };
+
+  const goToNextHole = () => {
+    if (holeNumber < 9) {
+      navigation.replace('Measurement', {
+        courseId,
+        holeNumber: holeNumber + 1,
+        courseColor
+      });
+    }
+  };
+
   return (
     <View style={[styles.container, { backgroundColor: courseColor }]}>
+      <StatusBar barStyle="light-content" backgroundColor={courseColor} />
       <Text style={styles.courseTitle}>{course.name}</Text>
       <Text style={styles.holeTitle}>Hoyo {hole.number}</Text>
       <Text style={styles.parText}>Par {hole.par}</Text>
@@ -91,6 +115,26 @@ export default function MeasurementScreen({ route }) {
               {hole.par === 3 ? 'metros a centro de green' : 'metros a entrada de green'}
             </Text>
           </View>
+        )}
+      </View>
+
+      <View style={styles.navigationContainer}>
+        {!isFirstHole && (
+          <TouchableOpacity 
+            style={styles.navButton}
+            onPress={goToPreviousHole}
+          >
+            <Text style={styles.navButtonText}>← Anterior hoyo</Text>
+          </TouchableOpacity>
+        )}
+        
+        {!isLastHole && (
+          <TouchableOpacity 
+            style={styles.navButton}
+            onPress={goToNextHole}
+          >
+            <Text style={styles.navButtonText}>Siguiente hoyo →</Text>
+          </TouchableOpacity>
         )}
       </View>
     </View>
@@ -161,5 +205,25 @@ const styles = StyleSheet.create({
     color: '#fff',
     marginTop: 10,
     textAlign: 'center',
+  },
+  navigationContainer: {
+    position: 'absolute',
+    bottom: 30,
+    left: 20,
+    right: 20,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
+  navButton: {
+    backgroundColor: 'rgba(255, 255, 255, 0.3)',
+    paddingVertical: 12,
+    paddingHorizontal: 20,
+    borderRadius: 20,
+    elevation: 2,
+  },
+  navButtonText: {
+    color: '#fff',
+    fontSize: 16,
+    fontWeight: 'bold',
   },
 });

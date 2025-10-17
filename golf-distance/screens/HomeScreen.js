@@ -1,9 +1,10 @@
 import React from 'react';
-import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
+import { View, Text, TouchableOpacity, StyleSheet, StatusBar } from 'react-native';
 
 export default function HomeScreen({ navigation }) {
   return (
     <View style={styles.container}>
+      <StatusBar barStyle="light-content" backgroundColor="#1976d2" />
       <Text style={styles.title}>DISTANCIA</Text>
       <Text style={styles.subtitle}>CLUB DE GOLF COSTA AZAHAR</Text>
       
@@ -20,7 +21,7 @@ export default function HomeScreen({ navigation }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#2d5f2e',
+    backgroundColor: '#1976d2',
     alignItems: 'center',
     justifyContent: 'center',
     padding: 20,
@@ -49,7 +50,7 @@ const styles = StyleSheet.create({
     shadowRadius: 3.84,
   },
   buttonText: {
-    color: '#2d5f2e',
+    color: '#1976d2',
     fontSize: 18,
     fontWeight: 'bold',
   },

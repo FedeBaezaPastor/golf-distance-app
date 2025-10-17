@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
+import { View, Text, TouchableOpacity, StyleSheet, StatusBar } from 'react-native';
 
 export default function CourseSelectionScreen({ navigation }) {
   const handleCourseSelect = (courseId, color) => {
@@ -8,6 +8,7 @@ export default function CourseSelectionScreen({ navigation }) {
 
   return (
     <View style={styles.container}>
+      <StatusBar barStyle="light-content" backgroundColor="#1976d2" />
       <Text style={styles.title}>Recorrido</Text>
       
       <View style={styles.buttonsContainer}>
@@ -32,7 +33,7 @@ export default function CourseSelectionScreen({ navigation }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#2d5f2e',
+    backgroundColor: '#1976d2',
     alignItems: 'center',
     paddingTop: 60,
     padding: 20,
