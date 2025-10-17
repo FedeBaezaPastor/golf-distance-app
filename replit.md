@@ -10,11 +10,24 @@ Preferred communication style: Simple, everyday language (Spanish).
 
 ## Recent Changes
 
+**October 17, 2025**: Major UI/UX redesign completed
+- Changed initial color scheme from green to blue (#1976d2)
+- Implemented dynamic color theming (red #c41e3a / green #4caf50 based on course selection)
+- StatusBar color synchronization: blue initially, changes to course color after selection
+- Redesigned navigation: removed logo from home screen
+- Course selection: square buttons (150x150) for Rojo/Verde
+- Hole selection: 3x3 grid layout (no scroll)
+- Added arrow-based hole navigation (◄ ►) with smart positioning:
+  - Previous hole (◄) always on left side
+  - Next hole (►) always on right side
+  - Hole 1: only ► on right
+  - Hole 9: only ◄ on left
+
 **October 16, 2025**: Initial application development completed
 - Created React Native app with Expo
 - Implemented GPS-based distance measurement
 - Added two 9-hole courses (Rojo and Verde) with fixed GPS coordinates
-- Integrated Club de Golf Costa Azahar branding and logo
+- Integrated Club de Golf Costa Azahar branding
 - Configured EAS build for APK generation
 - Set up GitHub Actions workflow for automated builds
 - Created comprehensive installation guide in Spanish
@@ -26,16 +39,19 @@ Preferred communication style: Simple, everyday language (Spanish).
 **Framework**: React Native with Expo SDK ~54.0.13
 - **Navigation System**: Stack-based navigation using `@react-navigation/native` and `@react-navigation/native-stack`
 - **Screen Flow**: 
-  1. Home Screen (brand introduction with club logo)
-  2. Course Selection Screen (choose between Rojo/Verde courses)
-  3. Hole Selection Screen (select hole 1-9)
-  4. Measurement Screen (GPS distance calculation)
+  1. Home Screen (blue theme, no logo, "Empezar medición" button)
+  2. Course Selection Screen (blue theme, square buttons for Rojo/Verde courses)
+  3. Hole Selection Screen (course-colored theme, 3x3 grid for holes 1-9)
+  4. Measurement Screen (course-colored theme, GPS distance calculation, arrow navigation)
 
 **UI Design Pattern**: 
-- Golf-themed green color scheme (#2d5f2e primary color)
+- Initial blue color scheme (#1976d2)
+- Dynamic theming: red (#c41e3a) for Rojo, green (#4caf50) for Verde
+- StatusBar color syncs with theme (blue → course color)
 - Touch-optimized large buttons for outdoor use
 - Portrait-only orientation for single-handed operation
 - Material design elevation/shadows for depth
+- Arrow navigation (◄ ►) positioned by direction for intuitive hole switching
 
 **State Management**: Component-level useState hooks (no global state management needed for this simple flow)
 
@@ -72,6 +88,7 @@ courses = {
 - Uses Haversine formula via `geolib` library
 - Calculates great-circle distance between two GPS coordinates
 - Returns distance in meters between user position and target hole
+- Verified accuracy: ~4545m vs Google Maps 4540m (99% accurate)
 
 **Measurement Logic**:
 - Par 3 holes: measure to center of green
@@ -92,8 +109,10 @@ courses = {
 
 **Build System**: 
 - Uses EAS Build for native builds
+- EAS Project ID: f3f52237-ffba-4a82-b701-708e1cb26f36
 - Configured for development, preview (internal APK), and production builds
 - New React Native architecture enabled
+- Android Keystore generated and configured
 
 ## Project Structure
 
@@ -101,17 +120,17 @@ courses = {
 golf-distance/
 ├── .github/
 │   └── workflows/
-│       └── build.yml          # GitHub Actions for APK build
+│       └── build.yml          # GitHub Actions for APK build (updated to v4)
 ├── assets/
 │   └── images/
-│       └── logo.jpg           # Club logo
+│       └── logo.jpg           # Club logo (not displayed in current version)
 ├── data/
 │   └── courses.js             # Course coordinates data
 ├── screens/
-│   ├── HomeScreen.js          # Welcome screen with logo
-│   ├── CourseSelectionScreen.js  # Choose Rojo/Verde
-│   ├── HoleSelectionScreen.js    # Choose hole 1-9
-│   └── MeasurementScreen.js      # GPS measurement
+│   ├── HomeScreen.js          # Blue welcome screen, no logo
+│   ├── CourseSelectionScreen.js  # Blue theme, square course buttons
+│   ├── HoleSelectionScreen.js    # Course-colored, 3x3 grid, no scroll
+│   └── MeasurementScreen.js      # Course-colored, GPS + arrow navigation
 ├── App.js                     # Main navigation setup
 ├── app.json                   # Expo configuration
 ├── eas.json                   # EAS Build configuration
@@ -142,7 +161,7 @@ golf-distance/
 
 ### Development & Build
 - **EAS Build**: Expo Application Services for native builds and distribution
-- **GitHub Actions**: Automated APK build workflow
+- **GitHub Actions**: Automated APK build workflow (updated to v4 actions)
 - No backend server or database required
 - No authentication system
 - No cloud services or APIs
@@ -184,7 +203,7 @@ golf-distance/
 1. Install EAS CLI: `npm install -g eas-cli`
 2. Login: `eas login`
 3. Build: `eas build --platform android --profile preview`
-4. Download APK from provided link
+4. Download APK from Expo dashboard (https://expo.dev)
 
 ## Installation on Android
 
@@ -196,11 +215,19 @@ golf-distance/
 
 ## Usage Flow
 
-1. Open app → See logo and "Empezar medición" button
-2. Tap button → Choose course (Rojo or Verde)
-3. Select course → Choose hole (1-9)
-4. Select hole → Tap "Medición" button
-5. App calculates distance → Shows "X mts a centro/entrada de green"
+1. Open app → Blue screen with "Empezar medición" button
+2. Tap button → Blue screen, choose course (Rojo or Verde in square buttons)
+3. Select course → Screen changes to course color, 3x3 grid to choose hole (1-9)
+4. Select hole → Screen in course color, tap "Medición" button for distance
+5. Navigate between holes using arrow buttons (◄ previous, ► next)
+6. App shows "X mts a centro/entrada de green"
+
+## UI Color Scheme
+
+- **Initial/Unselected State**: Blue (#1976d2)
+- **Recorrido Rojo**: Red (#c41e3a)
+- **Recorrido Verde**: Green (#4caf50)
+- **StatusBar**: Syncs with current theme color
 
 ## Future Enhancements (Not Implemented)
 

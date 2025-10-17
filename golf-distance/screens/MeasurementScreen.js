@@ -121,19 +121,19 @@ export default function MeasurementScreen({ route, navigation }) {
       <View style={styles.navigationContainer}>
         {!isFirstHole && (
           <TouchableOpacity 
-            style={styles.navButton}
+            style={styles.navButtonLeft}
             onPress={goToPreviousHole}
           >
-            <Text style={styles.navButtonText}>← Anterior hoyo</Text>
+            <Text style={styles.arrowText}>◄</Text>
           </TouchableOpacity>
         )}
         
         {!isLastHole && (
           <TouchableOpacity 
-            style={styles.navButton}
+            style={styles.navButtonRight}
             onPress={goToNextHole}
           >
-            <Text style={styles.navButtonText}>Siguiente hoyo →</Text>
+            <Text style={styles.arrowText}>►</Text>
           </TouchableOpacity>
         )}
       </View>
@@ -208,22 +208,34 @@ const styles = StyleSheet.create({
   },
   navigationContainer: {
     position: 'absolute',
-    bottom: 30,
-    left: 20,
-    right: 20,
+    bottom: 40,
+    left: 0,
+    right: 0,
     flexDirection: 'row',
     justifyContent: 'space-between',
+    paddingHorizontal: 30,
   },
-  navButton: {
+  navButtonLeft: {
     backgroundColor: 'rgba(255, 255, 255, 0.3)',
-    paddingVertical: 12,
-    paddingHorizontal: 20,
-    borderRadius: 20,
-    elevation: 2,
+    width: 60,
+    height: 60,
+    borderRadius: 30,
+    alignItems: 'center',
+    justifyContent: 'center',
+    elevation: 3,
   },
-  navButtonText: {
+  navButtonRight: {
+    backgroundColor: 'rgba(255, 255, 255, 0.3)',
+    width: 60,
+    height: 60,
+    borderRadius: 30,
+    alignItems: 'center',
+    justifyContent: 'center',
+    elevation: 3,
+  },
+  arrowText: {
     color: '#fff',
-    fontSize: 16,
+    fontSize: 32,
     fontWeight: 'bold',
   },
 });
